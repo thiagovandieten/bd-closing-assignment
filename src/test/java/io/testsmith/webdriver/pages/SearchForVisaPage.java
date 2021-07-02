@@ -30,30 +30,21 @@ public class SearchForVisaPage extends AbstractPageBase {
     public SearchForVisaPage(WebDriver driver) {
         super(driver);
     }
-
+//6.1
     public SearchForVisaPage setCountryOfOriginTo(String countryOfOrigin) {
         dropdownFromCountry.click();
         textfieldFromCountry.sendKeys(countryOfOrigin);
         driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfOrigin))).click();
         return this;
     }
-
+//6.2
     public SearchForVisaPage setCountryOfVisitTo(String countryOfVisit) {
         dropdownToCountry.click();
         textfieldToCountry.sendKeys(countryOfVisit);
         driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfVisit))).click();
         return this;
     }
-
-    public SearchForVisaPage setVisitDateTo(String visitDate) {
-        textfieldDate.sendKeys(visitDate);
-        return this;
-    }
-
-    public SearchForVisaPage submitVisa() {
-        buttonSubmit.click();
-        return this;
-    }
+//6.3?
     public SearchForVisaPage setVisaTotal(String countryOfOrigin, String countryOfVisit, String visitDate) {
         dropdownFromCountry.click();
         textfieldFromCountry.sendKeys(countryOfOrigin);
@@ -62,6 +53,17 @@ public class SearchForVisaPage extends AbstractPageBase {
         textfieldToCountry.sendKeys(countryOfVisit);
         driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfVisit))).click();
         textfieldDate.sendKeys(visitDate);
+        buttonSubmit.click();
+        return this;
+    }
+//6.4
+    public SearchForVisaPage setVisitDateTo(String visitDate) {
+        textfieldDate.sendKeys(visitDate);
+        return this;
+    }
+//6.5 moet current date worden
+//6.6
+    public SearchForVisaPage submitVisa() {
         buttonSubmit.click();
         return this;
     }
