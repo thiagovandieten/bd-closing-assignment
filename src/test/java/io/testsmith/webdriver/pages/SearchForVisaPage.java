@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.time.LocalDate;
+
 public class SearchForVisaPage extends AbstractPageBase {
 
     @FindBy(css = "select[name='nationality_country'] + div")
@@ -40,6 +42,27 @@ public class SearchForVisaPage extends AbstractPageBase {
         dropdownToCountry.click();
         textfieldToCountry.sendKeys(countryOfVisit);
         driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfVisit))).click();
+        return this;
+    }
+
+    public SearchForVisaPage setVisitDateTo(String visitDate) {
+        textfieldDate.sendKeys(visitDate);
+        return this;
+    }
+
+    public SearchForVisaPage submitVisa() {
+        buttonSubmit.click();
+        return this;
+    }
+    public SearchForVisaPage setVisaTotal(String countryOfOrigin, String countryOfVisit, String visitDate) {
+        dropdownFromCountry.click();
+        textfieldFromCountry.sendKeys(countryOfOrigin);
+        driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfOrigin))).click();
+        dropdownToCountry.click();
+        textfieldToCountry.sendKeys(countryOfVisit);
+        driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfVisit))).click();
+        textfieldDate.sendKeys(visitDate);
+        buttonSubmit.click();
         return this;
     }
 }
