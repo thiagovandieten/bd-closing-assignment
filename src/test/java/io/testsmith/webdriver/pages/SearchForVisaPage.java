@@ -35,4 +35,11 @@ public class SearchForVisaPage extends AbstractPageBase {
         driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfOrigin))).click();
         return this;
     }
+
+    public SearchForVisaPage setCountryOfVisitTo(String countryOfVisit) {
+        dropdownToCountry.click();
+        textfieldToCountry.sendKeys(countryOfVisit);
+        driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfVisit))).click();
+        return this;
+    }
 }

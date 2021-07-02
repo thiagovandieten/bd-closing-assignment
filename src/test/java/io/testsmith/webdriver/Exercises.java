@@ -15,7 +15,8 @@ public class Exercises extends TestBase {
                 .selectMenuItem("Visa");
 
         new SearchForVisaPage(getDriver())
-                .setCountryOfOriginTo("American Samoa");
+                .setCountryOfOriginTo("American Samoa")
+                .setCountryOfVisitTo("United States");
 
         Thread.sleep(5000);
 
