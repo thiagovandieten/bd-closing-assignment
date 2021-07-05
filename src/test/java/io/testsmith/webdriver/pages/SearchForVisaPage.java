@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class SearchForVisaPage extends AbstractPageBase {
 
@@ -27,34 +29,39 @@ public class SearchForVisaPage extends AbstractPageBase {
     @FindBy(xpath = "//button[text()='Submit']")
     private WebElement buttonSubmit;
 
+    private final Map<String, WebElement> fromElements = Map.of(
+            "dropdown", dropdownFromCountry,
+            "textfield", textfieldFromCountry);
+
+
+    private final Map<String, WebElement> toElements = Map.of(
+            "dropdown", dropdownToCountry,
+            "textfield", textfieldToCountry);
+
     public SearchForVisaPage(WebDriver driver) {
         super(driver);
     }
 //6.1
     public SearchForVisaPage setCountryOfOriginTo(String countryOfOrigin) {
-        dropdownFromCountry.click();
-        textfieldFromCountry.sendKeys(countryOfOrigin);
-        driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfOrigin))).click();
+        setCountryOnDropdown(countryOfOrigin, fromElements);
         return this;
     }
 //6.2
     public SearchForVisaPage setCountryOfVisitTo(String countryOfVisit) {
-        dropdownToCountry.click();
-        textfieldToCountry.sendKeys(countryOfVisit);
-        driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfVisit))).click();
+        setCountryOnDropdown(countryOfVisit, toElements);
         return this;
     }
-//6.3?
-    public SearchForVisaPage setVisaTotal(String countryOfOrigin, String countryOfVisit, String visitDate) {
-        dropdownFromCountry.click();
-        textfieldFromCountry.sendKeys(countryOfOrigin);
-        driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfOrigin))).click();
-        dropdownToCountry.click();
-        textfieldToCountry.sendKeys(countryOfVisit);
-        driver.findElement(By.xpath(String.format("//li/em[text()='%s']", countryOfVisit))).click();
-        textfieldDate.sendKeys(visitDate);
-        buttonSubmit.click();
-        return this;
+//6.3
+    /**
+     *
+     * @param country Het land dat in de visa's textveld moet komen, of het nou from of to is.
+     * @param countryElement Een map element die de bijbehorende dropdown en textfield WebElements bevat van een veld.
+     *
+     */
+    private void setCountryOnDropdown(String country, Map<String, WebElement> countryElement) {
+        countryElement.get("dropdown").click();
+        countryElement.get("textfield").sendKeys(country);
+        driver.findElement(By.xpath(String.format("//li/em[text()='%s']", country))).click();
     }
 //6.4
     public SearchForVisaPage setVisitDateTo(String visitDate) {
