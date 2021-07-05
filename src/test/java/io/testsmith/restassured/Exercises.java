@@ -64,7 +64,7 @@ public class Exercises {
 
                 given()
                         .when()
-                        .get("https://restful-booker.herokuapp.com/booking/11")
+                        .get("/booking/11")
                         .as(Booking.class);
 
         Assert.assertEquals("Jiiim", booking.getFirstName());
@@ -93,11 +93,14 @@ public class Exercises {
          * Extract and store the generated bookingid as an integer.
          */
 
-        int bookingId =
+        String bookingId =
 
                 given()
                         .contentType(ContentType.JSON)
-                        .when().post().then().extract().path("");
+                        .accept(ContentType.JSON)
+
+                        .when().log().all().post("/booking").then().log().all().extract().path("bookingId");
+        System.out.println(bookingId);
 
         /**
          * Use that value as a path
