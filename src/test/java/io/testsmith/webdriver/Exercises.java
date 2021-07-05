@@ -3,6 +3,8 @@ package io.testsmith.webdriver;
 import io.testsmith.webdriver.pages.HomePage;
 import io.testsmith.webdriver.pages.SearchForVisaPage;
 import io.testsmith.webdriver.pages.VisaApplicationPage;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -17,6 +19,7 @@ public class Exercises extends TestBase {
                 .acceptCookies()
                 .selectMenuItem("Visa");
 
+        //6.7
         new SearchForVisaPage(getDriver())
                 .setCountryOfOriginTo("American Samoa")
                 .setCountryOfVisitTo("United States")
@@ -24,8 +27,9 @@ public class Exercises extends TestBase {
                 .submitVisa();
 //                .setVisaTotal("American Samoa","United States","01-09-2021");
 
+        //6.10
         new VisaApplicationPage(getDriver())
-            .setVisaFields("Annie", "May","Annie@outlook.com","Annie@outlook.com","777","1-12-2021");
+                .setVisaFields("Annie", "May", "Annie@outlook.com", "Annie@outlook.com", "777", "1-12-2021");
         String actualString = getDriver().findElement(By.name("first_name")).getAttribute("value");
         Assert.assertTrue(actualString.contains("Annie"));
         new VisaApplicationPage(getDriver())
@@ -39,10 +43,14 @@ public class Exercises extends TestBase {
 
         System.out.println(actualString);
     }
+
     @Test
     public void testJodaToString() {
-        org.joda.time.LocalDate localDate = new org.joda.time.LocalDate();
-        System.out.println("localDate : " + localDate.toString());
-           }
+        org.joda.time.LocalDate date = org.joda.time.LocalDate.now();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd-MM-yyyy");
+        date = date.plusDays(1);
+        String str = date.toString(fmt);
+        System.out.println(str);
+    }
 
 }

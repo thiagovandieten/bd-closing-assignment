@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 public class VisaApplicationPage extends AbstractPageBase {
 
+    //6.9
     @FindBy(name = "first_name")
     private WebElement textfieldFirstName;
     @FindBy(name = "last_name")
@@ -28,6 +29,7 @@ public class VisaApplicationPage extends AbstractPageBase {
         super(driver);
     }
 
+    //6.10
     public VisaApplicationPage setVisaFields(String firstName, String lastName, String email, String confirmEmail, String contactNumber, String date) {
         textfieldDate.clear();
         textfieldFirstName.sendKeys(firstName);
