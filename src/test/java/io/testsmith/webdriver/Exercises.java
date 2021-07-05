@@ -3,11 +3,14 @@ package io.testsmith.webdriver;
 import io.testsmith.webdriver.pages.HomePage;
 import io.testsmith.webdriver.pages.SearchForVisaPage;
 import io.testsmith.webdriver.pages.VisaApplicationPage;
+import io.testsmith.webdriver.utils.Date;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import static io.testsmith.webdriver.utils.Date.Tomorrow;
 
 
 public class Exercises extends TestBase {
@@ -23,9 +26,8 @@ public class Exercises extends TestBase {
         new SearchForVisaPage(getDriver())
                 .setCountryOfOriginTo("American Samoa")
                 .setCountryOfVisitTo("United States")
-                .setVisitDateTo("01-09-2021")
+                .setVisitDateTo(Tomorrow()) //6.5
                 .submitVisa();
-//                .setVisaTotal("American Samoa","United States","01-09-2021");
 
         //6.10
         new VisaApplicationPage(getDriver())
@@ -40,17 +42,5 @@ public class Exercises extends TestBase {
         Thread.sleep(5000);
 
         new VisaApplicationPage(getDriver());
-
-        System.out.println(actualString);
     }
-
-    @Test
-    public void testJodaToString() {
-        org.joda.time.LocalDate date = org.joda.time.LocalDate.now();
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd-MM-yyyy");
-        date = date.plusDays(1);
-        String str = date.toString(fmt);
-        System.out.println(str);
-    }
-
 }

@@ -7,8 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class SearchForVisaPage extends AbstractPageBase {
@@ -70,14 +68,7 @@ public class SearchForVisaPage extends AbstractPageBase {
         textfieldDate.sendKeys(visitDate);
         return this;
     }
-//6.5 moet current date worden
-    public static void setSystemDatePlusOne() {
-        org.joda.time.LocalDate date = org.joda.time.LocalDate.now();
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd-MM-yyyy");
-        date = date.plusDays(1);
-        String str = date.toString(fmt);
-        System.out.println(str);
-    {
+
 //6.6
     public SearchForVisaPage submitVisa() {
         buttonSubmit.click();
