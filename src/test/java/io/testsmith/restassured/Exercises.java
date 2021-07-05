@@ -4,11 +4,19 @@ import io.restassured.http.ContentType;
 import io.testsmith.restassured.models.Booking;
 import io.testsmith.restassured.models.BookingDates;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 
 public class Exercises {
+
+    @BeforeClass
+    public void setup() {
+        baseURI = "https://restful-booker.herokuapp.com";
+    }
 
     @Test
     public void getBooking_checkStatusCode_shouldReturnHttp200() {
@@ -18,7 +26,12 @@ public class Exercises {
          * and check that the status code equals 200
          */
 
-        given().when().then();
+        given()
+                .when()
+                .get("/booking/11")
+                .then()
+                .log().all()
+                .assertThat().statusCode(200);
     }
 
     @Test
@@ -30,7 +43,12 @@ public class Exercises {
          * 'additionalneeds' equals 'Breakfast'
          */
 
-        given().when().then();
+        given()
+                .when()
+                .get("/booking/11")
+                .then()
+                .log().all()
+                .assertThat().body("additionalneeds", is("Breakfast"));
     }
 
     @Test
@@ -48,10 +66,10 @@ public class Exercises {
 
                 given()
                         .when()
-                        .get("https://restful-booker.herokuapp.com/booking/23")
+                        .get("/booking/11")
                         .as(Booking.class);
 
-        Assert.assertEquals("Roy", booking.getFirstName());
+        Assert.assertEquals("Jiiim", booking.getFirstName());
     }
 
     @Test
@@ -77,11 +95,17 @@ public class Exercises {
          * Extract and store the generated bookingid as an integer.
          */
 
-        int bookingId =
+        int bookingId = //Bleek toch int te zijn.
 
                 given()
                         .contentType(ContentType.JSON)
-                        .when().post().then().extract().path("");
+                        .body(booking) //Door de JsonProperties weet hij al de content om te zetten naar JSON
+                        .when().log().all()
+                        .post("/booking/")
+                        .then().log().all()
+                        .extract()
+                        .path("bookingid");
+        System.out.println(bookingId);
 
         /**
          * Use that value as a path
@@ -92,7 +116,11 @@ public class Exercises {
          * You don't need to create or modify the Booking class yourself
          */
 
-        given().when().then();
+        given()
+                .when()
+                .get("/booking/" + bookingId)
+                .as(Booking.class);
+        Assert.assertEquals("de Kleijn", booking.getLastName());
 
     }
 }
