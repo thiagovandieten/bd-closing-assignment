@@ -116,7 +116,11 @@ public class Exercises {
          * You don't need to create or modify the Booking class yourself
          */
 
-        given().when().then();
+        given()
+                .when()
+                .get("/booking/" + bookingId)
+                .as(Booking.class);
+        Assert.assertEquals("de Kleijn", booking.getLastName());
 
     }
 }
