@@ -3,6 +3,8 @@ package io.testsmith.webdriver;
 import io.testsmith.webdriver.pages.HomePage;
 import io.testsmith.webdriver.pages.SearchForVisaPage;
 import io.testsmith.webdriver.pages.VisaApplicationPage;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -41,8 +43,10 @@ public class Exercises extends TestBase {
     }
     @Test
     public static void main() {
-        org.joda.time.LocalDate localDate = new org.joda.time.LocalDate();
-        System.out.println("localDate : " + localDate.toString());
+        org.joda.time.LocalDate date = org.joda.time.LocalDate.now();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd-MM-yyyy");
+        String str = date.toString(fmt);
+        System.out.println(date);
            }
 
 }
