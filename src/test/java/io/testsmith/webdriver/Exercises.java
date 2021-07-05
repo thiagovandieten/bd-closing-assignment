@@ -2,6 +2,7 @@ package io.testsmith.webdriver;
 
 import io.testsmith.webdriver.pages.HomePage;
 import io.testsmith.webdriver.pages.SearchForVisaPage;
+import io.testsmith.webdriver.pages.VisaApplicationConfirmPage;
 import io.testsmith.webdriver.pages.VisaApplicationPage;
 import io.testsmith.webdriver.utils.Date;
 import org.joda.time.format.DateTimeFormat;
@@ -37,10 +38,13 @@ public class Exercises extends TestBase {
         new VisaApplicationPage(getDriver())
                 .sumbitForm();
 
-        Assert.assertTrue(getDriver().findElement(By.id("submi")).isDisplayed());
-
         Thread.sleep(5000);
 
         new VisaApplicationPage(getDriver());
+
+        //6.12 - 6.15
+        boolean isVisible = new VisaApplicationConfirmPage(getDriver())
+                .getVisibilityConfirmPage();
+        Assert.assertTrue(isVisible);
     }
 }
