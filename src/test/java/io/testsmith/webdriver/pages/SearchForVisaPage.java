@@ -1,5 +1,7 @@
 package io.testsmith.webdriver.pages;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -69,6 +71,13 @@ public class SearchForVisaPage extends AbstractPageBase {
         return this;
     }
 //6.5 moet current date worden
+    public static void setSystemDatePlusOne() {
+        org.joda.time.LocalDate date = org.joda.time.LocalDate.now();
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd-MM-yyyy");
+        date = date.plusDays(1);
+        String str = date.toString(fmt);
+        System.out.println(str);
+    {
 //6.6
     public SearchForVisaPage submitVisa() {
         buttonSubmit.click();
