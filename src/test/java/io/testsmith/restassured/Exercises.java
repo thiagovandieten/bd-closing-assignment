@@ -14,7 +14,9 @@ import static org.hamcrest.Matchers.is;
 public class Exercises {
 
     @BeforeClass
-    public void setup() { baseURI="https://restful-booker.herokuapp.com"; }
+    public void setup() {
+        baseURI = "https://restful-booker.herokuapp.com";
+    }
 
     @Test
     public void getBooking_checkStatusCode_shouldReturnHttp200() {
@@ -93,13 +95,16 @@ public class Exercises {
          * Extract and store the generated bookingid as an integer.
          */
 
-        String bookingId =
+        int bookingId = //Bleek toch int te zijn.
 
                 given()
                         .contentType(ContentType.JSON)
-                        .accept(ContentType.JSON)
-
-                        .when().log().all().post("/booking").then().log().all().extract().path("bookingId");
+                        .body(booking) //Door de JsonProperties weet hij al de content om te zetten naar JSON
+                        .when().log().all()
+                        .post("/booking/")
+                        .then().log().all()
+                        .extract()
+                        .path("bookingid");
         System.out.println(bookingId);
 
         /**
