@@ -26,7 +26,7 @@ public class Exercises extends TestBase {
 
         new VisaApplicationPage(getDriver())
             .setVisaFields("Annie", "May","Annie@outlook.com","Annie@outlook.com","777","1-12-2021");
-        String actualString = getDriver().findElement(By.name("first_name")).getText();
+        String actualString = getDriver().findElement(By.name("first_name")).getAttribute("value");
         Assert.assertTrue(actualString.contains("Annie"));
         new VisaApplicationPage(getDriver())
                 .sumbitForm();
@@ -40,7 +40,7 @@ public class Exercises extends TestBase {
         System.out.println(actualString);
     }
     @Test
-    public static void main() {
+    public void testJodaToString() {
         org.joda.time.LocalDate localDate = new org.joda.time.LocalDate();
         System.out.println("localDate : " + localDate.toString());
            }
