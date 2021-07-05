@@ -4,11 +4,17 @@ import io.restassured.http.ContentType;
 import io.testsmith.restassured.models.Booking;
 import io.testsmith.restassured.models.BookingDates;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.is;
 
 public class Exercises {
+
+    @BeforeClass
+    public void setup() { baseURI="https://restful-booker.herokuapp.com"; }
 
     @Test
     public void getBooking_checkStatusCode_shouldReturnHttp200() {
@@ -18,7 +24,12 @@ public class Exercises {
          * and check that the status code equals 200
          */
 
-        given().when().then();
+        given()
+                .when()
+                .get("/booking/11")
+                .then()
+                .log().all()
+                .assertThat().statusCode(200);
     }
 
     @Test
@@ -30,7 +41,12 @@ public class Exercises {
          * 'additionalneeds' equals 'Breakfast'
          */
 
-        given().when().then();
+        given()
+                .when()
+                .get("/booking/11")
+                .then()
+                .log().all()
+                .assertThat().body("additionalneeds", is("Breakfast"));
     }
 
     @Test
@@ -48,10 +64,10 @@ public class Exercises {
 
                 given()
                         .when()
-                        .get("https://restful-booker.herokuapp.com/booking/23")
+                        .get("https://restful-booker.herokuapp.com/booking/11")
                         .as(Booking.class);
 
-        Assert.assertEquals("Roy", booking.getFirstName());
+        Assert.assertEquals("Jiiim", booking.getFirstName());
     }
 
     @Test
